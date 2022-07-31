@@ -1,0 +1,340 @@
+/*ШРИФТЫ*/
+
+@font-face
+    font-family: 'Montserrat'
+    src: url('../fonts/Montserrat/Montserrat-Light.woff2') format('woff2'),url('../fonts/Montserrat/Montserrat-Light.woff') format('woff'),url('../fonts/Montserrat/Montserrat-Light.ttf') format('truetype')
+    font-weight: 600
+    font-style: normal
+    font-display: swap
+
+@font-face
+    font-family: 'Montserrat'
+    src: url('../fonts/Montserrat/Montserrat-Regular.woff2') format('woff2'),url('../fonts/Montserrat/Montserrat-Regular.woff') format('woff'),url('../fonts/Montserrat/Montserrat-Regular.ttf') format('truetype')
+    font-weight: 400
+    font-style: normal
+    font-display: swap
+
+@font-face
+    font-family: 'Montserrat'
+    src: url('../fonts/Montserrat/Montserrat-Medium.woff2') format('woff2'),url('../fonts/Montserrat/Montserrat-Medium.woff') format('woff'),url('../fonts/Montserrat/Montserrat-Medium.ttf') format('truetype')
+    font-weight: 500
+    font-style: normal
+    font-display: swap
+
+/*ПЕРЕМЕННЫЕ*/
+
+$font: Montserrat, Arial, Helvetica, sans-serif
+$text-color: rgba(43, 43, 43, 1)
+$text-color-light: rgba(43, 43, 43, 0.8)
+$text-color-black: rgba(0, 0, 0, 1)
+$line-height-small: 1.5em
+$line-height-large: 1.7em 
+$transition_delay: .3s
+
+/*МИКСИНЫ*/
+
+@mixin text($color, $size, $fontWeight, $lineHeight)
+    color: $color
+    font-size: $size
+    font-weight: $fontWeight
+    line-height: $lineHeight
+
+/*СБРОС СТИЛЕЙ И СТАРТОВЫЕ НАСТРОЙКИ*/
+    
+*, *::after, *::before, *:focus, *:active
+    box-sizing: border-box
+    margin: 0
+    padding: 0
+    border: 0
+    outline: none
+
+html
+    font-size: 16px
+
+body
+    font-family: $font
+    width: 100%
+    height: 100%
+
+ul, ol
+    list-style-type: none
+
+img
+    width: 100%
+
+/*БЛОКИ И СЛУЖЕБНЫЕ КЛАССЫ*/
+
+.container
+    max-width: 1548px
+    margin: 0 auto
+    padding-left: 20px
+    padding-right: 20px
+
+.btn
+    display: block
+    font-family: $font
+    @include text($text-color, 1rem, 500, $line-height-large)
+    padding: 12px 40px
+    border: 1px solid $text-color
+    background: none
+    cursor: pointer
+
+.filter
+    padding: 27px 21px
+    display: flex
+    justify-content: space-between
+    align-items: center
+    background-color: rgba(243, 243, 243, 1)
+    &__select
+        flex-basis: fit-content
+        flex-shrink: 1
+        flex-grow: 0
+    &__text
+        @include text(rgba(0, 0, 0, 1), 1rem, 400, $line-height-large)
+        flex-basis: auto
+        flex-shrink: 1
+        flex-grow: 2
+        text-align: right
+    &__separator
+        width: 1px
+        height: 30px
+        background-color: rgba(217, 217, 217, 1)
+        margin: 0 40px
+
+.select
+    position: relative
+    &__header
+        display: flex
+        align-items: center
+        justify-content: space-between
+        gap: 41px
+        padding-right: 8px
+        cursor: pointer
+    &__value
+        @include text($text-color, 1rem, 400, $line-height-small)
+    &__icon
+        width: 12px
+        height: 7px
+        background-image: url(/img/select__icon.svg)
+        transform: rotate(0deg)
+        transition: transform $transition_delay linear
+    &.active .select__icon
+        transform: rotate(180deg)
+        transition: transform $transition_delay linear
+    &__list
+        position: absolute
+        left: 0
+        top: calc(100% + 10px)
+        width: 100%
+        padding: 26px 30px 20px
+        padding-top: 0
+        padding-bottom: 0
+        padding-left: 23px
+        padding-right: 23px
+        background-color: rgba(255, 255, 255, 1)
+        overflow: hidden
+        visibility: hidden
+        height: 0
+        opacity: 0
+        z-index: -1
+        transition: all $transition_delay linear
+    &.active .select__list
+        visibility: visible
+        height: auto
+        opacity: 1
+        padding-top: 26px
+        padding-bottom: 20px
+        z-index: 9999
+        transition: all $transition_delay linear
+
+    &__option
+        @include text(rgba(0, 0, 0, 1), 1.125rem, 500, $line-height-small)
+        padding: 0 4px 6px
+        border-bottom: 1px solid rgba(0, 0, 0, 0)
+        transition: all $transition_delay linear
+        cursor: pointer
+        &:hover
+            border-bottom: 1px solid rgba(0, 0, 0, 1)
+            transition: all $transition_delay linear
+        &:not(:last-child)    
+            margin-bottom: 21px
+
+.catalog-card
+    &__img
+        margin-bottom: 20px
+    &__title
+        @include text($text-color, 1.75rem, 500, $line-height-small)
+        margin-bottom: 15px
+    &__text
+        @include text($text-color-light, 1rem, 500, $line-height-small)
+        & + .catalog-card__text
+            margin-top: 4px
+
+.swiper-tabs
+    position: relative
+    margin-bottom: 68px
+    border-bottom: 1px solid rgba(209, 209, 209, 1)
+    .btn-slide
+        max-width: fit-content
+        cursor: pointer
+        &__inner
+            @include text($text-color-light, 1.5rem, 500, $line-height-small)
+            padding-bottom: 21px
+            border-bottom: 1px solid rgba(0, 0, 0, 0)
+            transition: all $transition_delay linear
+        &.swiper-slide-thumb-active .btn-slide__inner
+            border-bottom: 1px solid rgba(0, 0, 0, 1)
+            transition: all $transition_delay linear
+    .swiper-control
+        position: absolute
+        display: flex
+        align-items: center
+        top: 0
+        right: 0
+        z-index: 9999
+        .swiper-pagination
+            @include text($text-color-light, 1.375rem, 300, $line-height-large)
+            position: relative
+            top: 0
+            left: 0
+            text-align: right
+            margin-right: 45px
+            .swiper-pagination-current
+                font-weight: 400
+        .swiper-button-prev, .swiper-button-next
+           position: relative
+           left: 0
+           top: 0
+           height: 100%
+           margin-top: 0
+        .swiper-button-prev:after, .swiper-button-next:after
+           @include text($text-color-light, 1rem, 400, 1)
+           position: relative
+           top: 0
+           left: 0
+        .swiper-button-prev
+            margin-right: 27px
+
+.swiper
+    .slide-wrapper
+        display: flex
+        align-items: center
+        gap: 119px
+    .swiper-slide
+        &__img
+            max-width: 50%
+            flex-basis: 50%
+        &__text
+            flex-basis: 50%
+        &__title
+            @include text($text-color-light, 1.5rem, 500, $line-height-small)
+            margin-bottom: 45px
+        &__description
+            @include text(rgba(0, 0, 0, 1), 1.125rem, 400, $line-height-small)
+            margin-bottom: 93px
+
+/*TECH*/
+
+.tech
+    padding-top: 128px
+    padding-bottom: 144px
+    &__title
+        @include text($text-color, 3rem, 400, $line-height-large)
+        margin-bottom: 20px
+    &__text
+        @include text($text-color, 1rem, 400, $line-height-large)
+        margin-bottom: 40px
+
+/*PROJECTS*/
+
+.projects
+    padding-bottom: 100px
+    &__filter
+        margin-bottom: 40px
+    &__catalog
+        display: flex
+        flex-wrap: wrap
+        gap: 40px
+        margin-bottom: 99px
+    &__item
+        width: calc((100% - 40px) / 2)
+    &__all
+        margin: 0 auto
+
+@media (max-width: 1230px) 
+    html
+        font-size: 14px
+    .swiper-tabs
+        margin-bottom: 48px
+   
+    .swiper
+        .slide-wrapper
+            gap: 76px
+    .projects
+        &__catalog
+            gap: 30px
+       
+@media (max-width: 1040px)
+    .swiper-tabs
+        .swiper-control
+            .swiper-pagination
+                margin-right: 20px
+            .swiper-button-prev
+                margin-right: 13px
+    .swiper
+        .slide-wrapper
+            gap: 30px
+        .swiper-slide
+            &__img
+                max-width: 55%
+                flex-basis: 55%
+            &__title
+                margin-bottom: 40px
+            &__description
+                margin-bottom: 48px  
+@media (max-width: 880px)
+    .swiper-tabs
+        .btn-slide
+            &__inner
+                padding-bottom: 6px
+    .slide-wrapper
+        flex-wrap: wrap
+        .swiper-slide
+            &__text
+                flex-basis: 100%
+            &__img
+                max-width: 100%
+                flex-basis: 100%
+            &__title
+                margin-bottom: 20px
+            &__description
+                margin-bottom: 24px 
+    .catalog-card
+        &__title
+            font-size: 1.5rem
+    .tech
+        padding-bottom: 77px
+
+@media (max-width: 730px)
+    .projects
+        &__catalog
+            gap: 30px
+        &__item
+            width: 100%
+    .filter
+        flex-wrap: wrap
+        &__select
+            margin-bottom: 15px
+        &__text
+            flex-basis: 100%
+@media (max-width: 530px)
+    .filter
+        &__select
+            flex-basis: 100%
+        &__text
+            flex-basis: 100%
+        &__separator
+            display: none
+    .swiper-tabs
+        .swiper-control
+            top: calc(100% + 10px)

@@ -120,7 +120,9 @@ img {
 .select__icon {
   width: 12px;
   height: 7px;
-  background-image: url(/img/select__icon.svg);
+  background-image: url(../img/select__icon.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
   transform: rotate(0deg);
   transition: transform 0.3s linear;
 }
